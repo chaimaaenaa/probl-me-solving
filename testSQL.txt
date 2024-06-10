@@ -1,0 +1,78 @@
+CREATE DATABASE PROBLEMSOLV ;
+
+
+/////////////
+CREATE TABLE Invites (
+    id_invite INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255),
+    statut VARCHAR(50) 
+);
+
+/////////////////////////////////////////
+CREATE TABLE Rooms (
+    id_room INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255)
+);
+
+///////////////////////////////////
+CREATE TABLE Mouvements (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_invite INT,
+    id_room INT,
+    time DATETIME,
+    FOREIGN KEY (id_invite) REFERENCES Invites(id_invite),
+    FOREIGN KEY (id_room) REFERENCES Rooms(id_room)
+);
+////////////////////////////////////////////////////////:
+CREATE TABLE Objets (
+    id_objet INT AUTO_INCREMENT PRIMARY KEY,
+    nom_objet VARCHAR(255),
+    id_room INT,
+    FOREIGN KEY (id_room) REFERENCES Rooms(id_room)
+);
+
+//////////////////////////////////////////////
+CREATE TABLE Indices (
+    id_indice INT AUTO_INCREMENT PRIMARY KEY,
+    description TEXT,
+    id_room INT,
+    FOREIGN KEY (id_room) REFERENCES Rooms(id_room)
+);
+///////////////////////////////////////////
+INSERT INTO Invites (nom, statut) VALUES
+('Alice', 'suspect'),
+('Bob', 'suspect'),
+('Charlie', 'témoin');
+//////////////////////////////////////////:
+INSERT INTO Rooms (nom) VALUES
+('Salon'),
+('Cuisine'),
+('Chambre');
+///////////////
+INSERT INTO Mouvements (id_invite, id_room, time) VALUES
+(1, 1, '2024-06-10 14:00:00'),
+(1, 2, '2024-06-10 14:30:00'),
+(2, 1, '2024-06-10 14:15:00'),
+(2, 3, '2024-06-10 14:45:00'),
+(3, 1, '2024-06-10 14:05:00');
+/////////////////////////////////////::
+INSERT INTO Objets (nom_objet, id_room) VALUES
+('Vase', 1),
+('Livre', 2),
+('Lampe', 3);
+////////////////////////////////////////:
+INSERT INTO Indices (description, id_room) VALUES
+('Empreinte digitale sur le vase', 1),
+('Note écrite', 2),
+('Bijou trouvé sous le lit', 3);
+////////////////////////////////////////////////:
+SELECT * FROM Mouvements WHERE id_invite = 1;
+
+///////////////////////////////////////////////////////////////////
+SELECT * FROM Objets WHERE id_room = 1;
+
+////////////////////////////////////////////////////////::
+SELECT * FROM Indices WHERE id_room = 2;
+///////////////////////////////////////////////////////////////////////////
+
+
